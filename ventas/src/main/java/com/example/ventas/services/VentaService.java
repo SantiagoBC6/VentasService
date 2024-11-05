@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Servicio para gestionar operaciones relacionadas con Ventas.
+ * Proporciona métodos para crear, leer, actualizar y eliminar Ventas.
+ */
 @Slf4j
 @Service
 public class VentaService {

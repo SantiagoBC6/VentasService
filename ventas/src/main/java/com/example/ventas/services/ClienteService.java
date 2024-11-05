@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Servicio para gestionar operaciones relacionadas con Clientes.
+ * Proporciona métodos para crear, leer, actualizar y eliminar clientes.
+ */
 @Slf4j
 @Service
 public class ClienteService {

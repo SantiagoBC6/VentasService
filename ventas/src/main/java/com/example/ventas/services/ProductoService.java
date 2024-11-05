@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Servicio para gestionar operaciones relacionadas con productos.
+ * Proporciona métodos para crear, leer, actualizar y eliminar productos.
+ */
 @Slf4j
 @Service
 public class ProductoService {

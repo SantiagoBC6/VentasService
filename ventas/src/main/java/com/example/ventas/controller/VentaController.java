@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controlador REST para manejar solicitudes relacionadas con Ventas.
+ * Proporciona endpoints para realizar operaciones CRUD sobre ventas.
+ */
 @RestController
 @RequestMapping("/api/ventas")
 public class VentaController {

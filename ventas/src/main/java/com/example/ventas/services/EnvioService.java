@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+/**
+ * Servicio para gestionar operaciones relacionadas con Envios.
+ * Proporciona métodos para crear y eliminar envíos.
+ */
 @Slf4j
 @Service
 public class EnvioService {
@@ -29,6 +33,11 @@ public class EnvioService {
         envio.setFechaEnvio(LocalDateTime.now());
         envio.setFechaEntrega(LocalDateTime.now().plusDays(10));
         return envioRepository.save(envio);
+    }
+
+    public void eliminar(Long id) {
+        log.info("Eliminando Venta con ID: {}", id);
+        envioRepository.deleteById(id);
     }
 
 }

@@ -1,0 +1,51 @@
+Documentación Explicativa de la Arquitectura AWS para el Sistema de Ventas
+
+1. Introducción
+
+Este documento describe la arquitectura de la solución para un sistema de ventas, que integra múltiples servicios de Amazon Web Services (AWS) para garantizar un procesamiento eficiente de las ventas, almacenamiento de datos, gestión de archivos, y distribución de información de manera global. Además, se aborda la escalabilidad de la solución para garantizar que el sistema pueda manejar un aumento en la carga de trabajo sin afectar el rendimiento.
+
+2. Componentes de la Solución
+
+2.1 API Gateway
+Descripción: AWS API Gateway es el punto de entrada para las solicitudes HTTP, como la creación de pedidos, consultas de productos, o la verificación de pagos.
+Justificación: API Gateway facilita la creación, implementación y gestión de APIs RESTful de manera eficiente. Su capacidad de escalar automáticamente permite que el sistema maneje picos de tráfico sin necesidad de intervención manual. Además, proporciona características de seguridad como la autenticación y autorización, lo cual es esencial para proteger los datos sensibles del sistema de ventas.
+
+2.2 AWS Lambda
+Descripción: AWS Lambda ejecuta el código en respuesta a eventos, como la recepción de solicitudes de ventas o la actualización del inventario. Lambda se encarga de procesar los datos de las ventas y realizar las operaciones necesarias (por ejemplo, insertar registros en bases de datos o actualizar el stock de productos).
+Justificación: Lambda elimina la necesidad de gestionar servidores y permite que el código se ejecute solo cuando sea necesario. Escala automáticamente para procesar un gran número de transacciones simultáneas, lo que es fundamental en un sistema de ventas que debe ser capaz de manejar picos de tráfico, como durante campañas promocionales o ventas especiales.
+
+2.3 Amazon RDS (Relational Database Service)
+Descripción: Amazon RDS facilita la administración de bases de datos relacionales como MySQL o PostgreSQL para almacenar datos relacionados con las ventas, clientes, productos, y transacciones.
+Justificación: RDS simplifica la gestión de bases de datos al encargarse de tareas como copias de seguridad automáticas, actualizaciones y escalabilidad. Esto es clave para un sistema de ventas que requiere consistencia en las transacciones y capacidad de escalar a medida que se aumenta el volumen de ventas.
+
+2.4 Amazon S3 (Simple Storage Service)
+Descripción: Amazon S3 se utiliza para almacenar archivos relacionados con las ventas, como facturas, recibos o documentos adjuntos de clientes.
+Justificación: S3 proporciona un almacenamiento seguro, duradero y escalable. Dado que el sistema de ventas puede generar grandes volúmenes de datos (por ejemplo, imágenes de productos, recibos de ventas), S3 es ideal para almacenar estos archivos de manera eficiente, asegurando que puedan ser accedidos de manera rápida y segura.
+
+2.5 Amazon SNS (Simple Notification Service) y SQS (Simple Queue Service)
+Descripción: SNS se utiliza para enviar notificaciones a clientes y administradores (como confirmaciones de pedido), mientras que SQS se emplea para manejar tareas asíncronas como el procesamiento de pagos o la actualización de inventarios.
+Justificación: Ambos servicios permiten la comunicación eficiente y desacoplada entre los componentes del sistema. SNS facilita el envío de notificaciones a gran escala sin necesidad de manejar directamente las comunicaciones entre servicios, mientras que SQS permite procesar mensajes de forma asíncrona, lo que mejora la eficiencia y resiliencia del sistema.
+
+2.6 Amazon CloudFront
+Descripción: Amazon CloudFront es una red de entrega de contenido (CDN) que distribuye archivos y datos a usuarios a nivel global.
+Justificación: Cuando los clientes realizan compras o acceden a productos en línea, la velocidad de acceso es crucial. CloudFront acelera la entrega de contenido estático como imágenes de productos, facturas o archivos de medios, al distribuir estos archivos desde ubicaciones cercanas a los usuarios finales, mejorando la experiencia de usuario.
+
+2.7 Amazon CloudWatch
+Descripción: Amazon CloudWatch monitorea y recopila métricas de rendimiento, logs de aplicaciones, y establece alertas.
+Justificación: CloudWatch proporciona visibilidad total sobre el funcionamiento del sistema de ventas, lo que permite detectar problemas de rendimiento y hacer ajustes en tiempo real. En un sistema de ventas, donde cada transacción es crítica, la visibilidad en tiempo real permite identificar cuellos de botella y mejorar la experiencia del cliente.
+
+3. Escalabilidad de la Solución
+
+La arquitectura del sistema de ventas está diseñada para escalar horizontalmente y adaptarse a un incremento en la carga de trabajo. La escalabilidad de la solución está garantizada a través de los siguientes mecanismos:
+
+API Gateway: Escala automáticamente para manejar un alto volumen de solicitudes concurrentes sin necesidad de configuración adicional. Esto es fundamental durante eventos de alto tráfico como rebajas o lanzamientos de productos.
+AWS Lambda: Lambda ajusta automáticamente el número de instancias de ejecución en función del número de solicitudes, garantizando que el sistema pueda manejar picos de transacciones sin sobrecargar los recursos.
+Amazon RDS: RDS permite escalar tanto vertical como horizontalmente. Si se necesita mayor capacidad de procesamiento, se pueden agregar réplicas de lectura para distribuir la carga y asegurar una alta disponibilidad, lo cual es esencial en un sistema de ventas que necesita ser accesible y funcional 24/7.
+Amazon S3: La capacidad de almacenamiento de S3 es prácticamente ilimitada. A medida que el volumen de datos crece (por ejemplo, con el aumento de facturas o documentos de productos), S3 se ajusta sin que sea necesario intervenir manualmente.
+SNS/SQS: SNS puede manejar un gran volumen de notificaciones y mensajes sin preocuparse por la escalabilidad, mientras que SQS puede gestionar las tareas asíncronas en colas, lo que permite procesar pedidos y transacciones sin afectar el rendimiento del sistema en tiempo real.
+CloudFront: CloudFront escala de forma automática para distribuir contenido estático (como imágenes o documentos) a usuarios globalmente, mejorando el tiempo de respuesta y reduciendo la carga en los servidores.
+
+4. Conclusiones
+
+La arquitectura en AWS propuesta permite que el sistema de ventas sea altamente escalable, resiliente y eficiente. Cada componente está diseñado para manejar picos de tráfico y volúmenes crecientes de datos, lo que asegura un rendimiento óptimo sin comprometer la experiencia del usuario. La integración de servicios como Lambda y RDS permite que el sistema crezca de manera flexible, mientras que SNS, SQS y CloudFront mejoran la comunicación y distribución de contenidos a nivel global.
+Esta arquitectura aprovecha al máximo los servicios de AWS para construir un sistema robusto, económico y altamente disponible para procesar ventas y gestionar la información asociada en tiempo real.

@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controlador REST para manejar solicitudes relacionadas con Clientes.
+ * Proporciona endpoints para realizar operaciones CRUD sobre clientes.
+ */
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
