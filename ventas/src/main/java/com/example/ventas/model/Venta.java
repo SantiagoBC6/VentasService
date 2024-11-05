@@ -28,7 +28,7 @@ public class Venta {
     private LocalDateTime fechaVenta;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
     @Column(nullable = false)

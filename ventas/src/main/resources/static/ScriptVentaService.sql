@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS clientes (
   UNIQUE KEY 'correo' ('correo')
 );
 
-CREATE TABLE IF NOT EXISTS 'productos' (
+CREATE TABLE IF NOT EXISTS productos (
   'id' int NOT NULL AUTO_INCREMENT,
   'nombre' varchar(100) NOT NULL,
   'descripcion' text,
@@ -20,7 +20,21 @@ CREATE TABLE IF NOT EXISTS 'productos' (
   PRIMARY KEY ('id')
 );
 
-CREATE TABLE IF NOT EXISTS 'envios' (
+CREATE TABLE IF NOT EXISTS ventas (
+    'id' int NOT NULL AUTO_INCREMENT,
+    'producto_id' int NOT NULL,
+    'cantidad' int NOT NULL,
+    'fecha_venta' timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    'cliente_id' int DEFAULT NULL,
+    'estado' varchar(50) DEFAULT 'Completada',
+    PRIMARY KEY ('id'),
+    KEY 'producto_id' ('producto_id'),
+    KEY 'cliente_id' ('cliente_id'),
+    CONSTRAINT 'ventas_ibfk_1' FOREIGN KEY ('producto_id') REFERENCES 'productos' ('id'),
+    CONSTRAINT 'ventas_ibfk_2' FOREIGN KEY ('cliente_id') REFERENCES 'clientes' ('id')
+);
+
+CREATE TABLE IF NOT EXISTS envios (
   'id' int NOT NULL AUTO_INCREMENT,
   'venta_id' int NOT NULL,
   'estado' varchar(50) NOT NULL,
@@ -31,16 +45,3 @@ CREATE TABLE IF NOT EXISTS 'envios' (
   CONSTRAINT 'envios_ibfk_1' FOREIGN KEY ('venta_id') REFERENCES 'ventas' ('id') ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS 'ventas' (
-  'id' int NOT NULL AUTO_INCREMENT,
-  'producto_id' int NOT NULL,
-  'cantidad' int NOT NULL,
-  'fecha_venta' timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  'cliente_id' int DEFAULT NULL,
-  'estado' varchar(50) DEFAULT 'Completada',
-  PRIMARY KEY ('id'),
-  KEY 'producto_id' ('producto_id'),
-  KEY 'cliente_id' ('cliente_id'),
-  CONSTRAINT 'ventas_ibfk_1' FOREIGN KEY ('producto_id') REFERENCES 'productos' ('id'),
-  CONSTRAINT 'ventas_ibfk_2' FOREIGN KEY ('cliente_id') REFERENCES 'clientes' ('id')
-);
